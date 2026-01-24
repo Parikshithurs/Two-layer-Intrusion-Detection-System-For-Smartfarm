@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFarm IDS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f111a;
+            --card-bg: #1a1d2b;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b3b8;
+            --accent-blue: #2962ff;
+            --accent-cyan: #00bcd4;
+            --accent-purple: #d500f9;
+            --danger: #ff3d00;
+            --border-color: #2c3144;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+        .navbar {
+            background-color: var(--card-bg) !important;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .brand-text {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+        }
+        .card-custom {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .stat-card-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            font-family: 'Roboto Mono', monospace;
+        }
+        /* Table Styling */
+        .table-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .table-dark-custom {
+            --bs-table-bg: var(--card-bg);
+            --bs-table-color: var(--text-secondary);
+            --bs-table-border-color: var(--border-color);
+            margin-bottom: 0;
+        }
+        .table-dark-custom th {
+            background-color: #222636;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border-color);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .table-dark-custom td {
+            vertical-align: middle;
+            padding: 0.75rem 1rem;
+            border-color: var(--border-color);
+        }
+        .table-hover > tbody > tr:hover {
+            --bs-table-accent-bg: rgba(255, 255, 255, 0.03);
+        }
+        /* Badges & Text */
+        .badge-l1 { background-color: var(--accent-cyan); color: #000; font-weight: 600; }
+        .badge-l2 { background-color: var(--accent-purple); color: #fff; font-weight: 600; }
+        .badge-sev-high { background-color: var(--danger); color: #fff; animation: pulse 2s infinite; }
+        
+        @keyframes pulse {
+            0% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 61, 0, 0.4); }
+            70% { opacity: 1; box-shadow: 0 0 0 10px rgba(255, 61, 0, 0); }
+            100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); }
+        }
+        .alert-type-text {
+            color: #64b5f6;
+            font-weight: 600;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+        .console-font { font-family: 'Roboto Mono', monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark p-3">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <span class="navbar-brand brand-text">🛡️ SMART FARM IDS</span>
+            <div>
+                <span class="badge bg-success bg-opacity-75 text-white border border-success px-3 py-2 rounded-pill">SYSTEM ACTIVE</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4 px-4 pb-5">
+        
+        <div class="row mb-4 g-3">
+            <div class="col-md-3">
+                <div class="card card-custom p-4 text-center h-100">
+                    <h6 class="text-secondary text-uppercase stat-card-title mb-3">Total Threats</h6>
+                    <div class="stat-value text-white" id="stat-total">0</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-custom p-4 text-center h-100">
+                    <h6 class="text-secondary text-uppercase stat-card-title mb-3" style="color: var(--accent-cyan) !important;">Layer 1 (Network)</h6>
+                    <div class="stat-value" style="color: var(--accent-cyan);" id="stat-l1">0</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-custom p-4 text-center h-100">
+                    <h6 class="text-secondary text-uppercase stat-card-title mb-3" style="color: var(--accent-purple) !important;">Layer 2 (Insider)</h6>
+                    <div class="stat-value" style="color: var(--accent-purple);" id="stat-l2">0</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-custom p-4 text-center h-100">
+                    <h6 class="text-secondary text-uppercase stat-card-title mb-3" style="color: var(--danger) !important;">Critical Alerts</h6>
+                    <div class="stat-value" style="color: var(--danger);" id="stat-crit">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="p-3 border-bottom border-dark-subtle bg-dark bg-opacity-25">
+                <h5 class="m-0 text-white d-flex align-items-center">
+                    <span class="me-2">📡</span> Live Alert Feed
+                </h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark-custom table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">TIME</th>
+                            <th>LAYER</th>
+                            <th>TYPE</th>
+                            <th>SOURCE</th>
+                            <th>TARGET</th>
+                            <th>SEVERITY</th>
+                            <th>DETAILS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alerts-body" class="console-font">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fetchUpdates() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) return;
+
+                    // Update Stats with animation
+                    animateValue("stat-total", document.getElementById('stat-total').innerText, data.stats.total, 500);
+                    animateValue("stat-l1", document.getElementById('stat-l1').innerText, data.stats.layer1, 500);
+                    animateValue("stat-l2", document.getElementById('stat-l2').innerText, data.stats.layer2, 500);
+                    animateValue("stat-crit", document.getElementById('stat-crit').innerText, data.stats.critical, 500);
+
+                    // Update Table
+                    const tbody = document.getElementById('alerts-body');
+                    tbody.innerHTML = ''; // Clear old rows
+
+                    data.alerts.forEach(alert => {
+                        // Badge Logic
+                        let layerBadge = alert.layer.includes("Layer 1") 
+                            ? '<span class="badge badge-l1">NET-L1</span>' 
+                            : '<span class="badge badge-l2">ML-L2</span>';
+
+                        let sevBadge;
+                        if (alert.severity >= 4) {
+                             sevBadge = '<span class="badge badge-sev-high px-3 py-2">CRITICAL</span>';
+                        } else if (alert.severity === 3) {
+                             sevBadge = '<span class="badge bg-warning text-dark px-3 py-2">HIGH</span>';
+                        } else {
+                             sevBadge = '<span class="badge bg-secondary bg-opacity-50 text-light px-3 py-2">WARN</span>';
+                        }
+
+                        // Truncate description if too long
+                        let desc = alert.desc.length > 80 ? alert.desc.substring(0, 80) + '...' : alert.desc;
+
+                        // ✅ FIXED: Changed class="text-muted" to style="color: #cfd8dc" for better visibility
+                        let row = `
+                            <tr>
+                                <td class="ps-4 text-nowrap">${alert.time}</td>
+                                <td>${layerBadge}</td>
+                                <td class="alert-type-text">${alert.type}</td>
+                                <td class="text-nowrap">${alert.src}</td>
+                                <td class="text-nowrap">${alert.dst}</td>
+                                <td>${sevBadge}</td>
+                                <td class="small" style="color: #cfd8dc;" title="${alert.desc}">${desc}</td>
+                            </tr>
+                        `;
+                        tbody.innerHTML += row;
+                    });
+                })
+                .catch(err => console.error("Fetch error:", err));
+        }
+
+        // Simple number animation function
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            start = parseInt(start) || 0;
+            end = parseInt(end) || 0;
+            if (start === end) return;
+            const range = end - start;
+            let current = start;
+            const increment = end > start ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(duration / range));
+            const timer = setInterval(() => {
+                current += increment;
+                obj.innerText = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // Run immediately, then every 2 seconds
+        fetchUpdates();
+        setInterval(fetchUpdates, 2000);
+    </script>
+</body>
+</html>

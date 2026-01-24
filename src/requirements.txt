@@ -1,0 +1,14 @@
+scapy
+flask
+flask-socketio
+eventlet
+sqlalchemy
+pandas
+scikit-learn
+joblib
+psutil
+numpy
+scipy
+python-dateutil
+pytz
+tzdata
