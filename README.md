@@ -112,9 +112,26 @@ Open browser:
 
 http://localhost:5000
 
+🧪 Kali Linux Testing (Optional)
+
+From Kali:
+
+nmap -sS <IDS_IP>
+hping3 -S <IDS_IP> -p 80 --flood
+
+
+Alerts will appear in:
+
+Terminal
+
+Database
+
+Dashboard
+
 📊 Output
 Real-time attack alerts
 
 Unified alerts database
 
 Live dashboard visualization
+
