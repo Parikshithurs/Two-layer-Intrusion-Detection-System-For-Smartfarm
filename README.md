@@ -52,15 +52,15 @@ Analyzes sensor telemetry data using Machine Learning.
 smartfarm-ids/
 │
 ├── src/
-│ ├── netids/ # Layer 1 (Network IDS)
-│ ├── behavioral/ # Layer 2 (Behavioral IDS)
-│ ├── dashboard/ # Web dashboard
-│ ├── run_ids.py # Auto interface IDS runner
+│ ├── netids/ # Layer 1 Network IDS
+│ ├── behavioral/ # Layer 2 Behavioral IDS
+│ ├── dashboard/ # Web Dashboard
+│ ├── run_ids.py # Auto IDS runner
 │
-├── data/ # PCAP files
-├── telemetry.db # Sensor data DB
+├── telemetry.db # Sensor data
 ├── smartfarm_ids.db # Alerts DB
-├── venv/ # Virtual environment (ignored)
+├── data/ # PCAP files
+├── venv/ # Virtual environment
 └── README.md
 
 
@@ -136,5 +136,6 @@ Real-time attack alerts
 Unified alerts database
 
 Live dashboard visualization
+
 
 
