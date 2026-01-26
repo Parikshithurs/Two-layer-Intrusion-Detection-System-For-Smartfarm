@@ -46,9 +46,9 @@ Analyzes sensor telemetry data using Machine Learning.
 - CO₂
 
 ---
-
 ## 📂 Project Structure
 
+```text
 smartfarm-ids/
 ├── src/
 │   ├── netids/            # Layer 1 Network IDS
@@ -61,6 +61,7 @@ smartfarm-ids/
 ├── data/                  # PCAP files
 ├── venv/                  # Virtual environment
 └── README.md
+
 
 
 
@@ -135,6 +136,7 @@ Real-time attack alerts
 Unified alerts database
 
 Live dashboard visualization
+
 
 
 
