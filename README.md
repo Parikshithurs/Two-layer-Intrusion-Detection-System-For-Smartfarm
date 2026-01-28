@@ -114,7 +114,8 @@ Open browser:
 
 http://localhost:5000
 
-🧪 Kali Linux Testing (Optional)
+🧪 Kali Linux Testing
+Run kali linux in virtual box
 
 From Kali:
 
@@ -136,6 +137,7 @@ Real-time attack alerts
 Unified alerts database
 
 Live dashboard visualization
+
 
 
 
