@@ -62,7 +62,7 @@ smartfarm-ids/
 ├── venv/                  # Virtual environment
 └── README.md
 
-
+```
 
 
 ## 🛠️ Technologies & Tools
@@ -83,12 +83,12 @@ smartfarm-ids/
 ---
 
 
----
+
 
 ## 🚀 Installation & Setup
 
 ### 1️⃣ Create Virtual Environment
-```bash
+
 python -m venv venv
 2️⃣ Activate Environment
 venv\Scripts\Activate
@@ -118,10 +118,7 @@ http://localhost:5000
 Run kali linux in virtual box
 
 From Kali:
-
-nmap -sS <IDS_IP>
-hping3 -S <IDS_IP> -p 80 --flood
-
+run attack.py by filling ip address of src ip[kali linux in virtual box] and target ip[windows host] 
 
 Alerts will appear in:
 
@@ -137,6 +134,7 @@ Real-time attack alerts
 Unified alerts database
 
 Live dashboard visualization
+
 
 
 
